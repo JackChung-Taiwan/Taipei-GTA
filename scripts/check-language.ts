@@ -23,7 +23,7 @@ const browser=await chromium.launch({headless:true,...(executable?{executablePat
 const output="output/inkline-3d/language-check"
 await mkdir(output,{recursive:true})
 const errors:Array<string>=[]
-const base=process.env.GAME_BASE_URL??"http://127.0.0.1:5232"
+const base=process.env.GAME_BASE_URL??"http://127.0.0.1:5232/inkline-town.html"
 
 /** The page says it is in a language: its tag, its catalog, and a label only that language's catalog has. */
 const reads=async(page:Page,t:Catalog,what:string)=>{

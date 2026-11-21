@@ -1,174 +1,44 @@
-# Inkline Town
+# Taipei GTA｜台北自由城
 
-**A town-builder drawn in ink, played a term at a time.** You are the mayor
-for a term of 45, 60, or 90 minutes, and then another, for as long as the town
-stands. Lay the roads, house the settlers, build the chains that feed and
-clothe them, and raise a hamlet to a village, a town, and a city of
-burghers. Or watch it go bankrupt, revolt, or empty out.
+在風格化的台北街區步行探索、駕駛小黃，完成台北車站到台北 101 的接送任務。Phase 1 使用 TypeScript、Vite、PixiJS 3D 與 Ritmo ECS。
 
-<p align="center"><a href="https://inkline.typeonce.games"><b>▶ Play Inkline Town in your browser</b></a> · free, nothing to install, saves stay on your device</p>
+## 本機啟動
 
-<a href="docs/media/inkline-town.mp4">
-  <picture>
-    <source srcset="docs/media/inkline-town.avif" type="image/avif">
-    <img src="docs/screenshots/town-complete.webp" alt="Thirty seconds over a town in its sixth year: the camera turns over the whole island, dives to the clock-towered town hall, and follows carts and walkers down streets of townhouses">
-  </picture>
-</a>
-
-<p align="center"><sub>Thirty seconds in a town 80 minutes old, as it plays at double speed. <a href="docs/media/inkline-town.mp4">Watch it in full quality</a>.</sub></p>
-
-Inkline Town plays like a small Anno in a small box. Every building, cart, and
-person is drawn live in thin 3D line art. Pan, zoom and rotate the island;
-every map is new, and every
-term ends with a verdict and the story of how you got there.
-
-## A new charter, a new land
-
-Each town starts with a charter. You choose the size of the land, how rich it
-is in forest, stone, ore, and lakes, and how long your term runs. Every seed
-makes a different island, with a wandering coast and capes reaching out.
-
-![The charter: choosing a large, rich land and a 60-minute term, with a preview of the island](docs/screenshots/charter.webp)
-
-<table>
-  <tr>
-    <td><img src="docs/screenshots/map-small-rich.webp" alt="A small, rich town 25 minutes in: rows of townhouses and a fountain around the town hall, raised in scaffolding as it becomes a guildhall"></td>
-    <td><img src="docs/screenshots/map-large-rich.webp" alt="A large, rich island 80 minutes into a 90-minute term: workshops, farms and mills spread around the clock-towered town hall"></td>
-  </tr>
-  <tr>
-    <td align="center"><sub>small land, 25 minutes in: townhouses round a fountain, the town hall in scaffolding</sub></td>
-    <td align="center"><sub>large land, 80 minutes in: a village of 350 spread across the island</sub></td>
-  </tr>
-</table>
-
-## Build the chains, watch them work
-
-Lumberjacks fell trees and sawmills cut planks. Quarries and mines dig stone
-and ore for the smithy's tools. Farms grow wheat for the mill and the
-bakery, sheep give wool for the weaver, a carpenter turns planks into
-furniture for the townhouses, and fisheries feed the first
-settlers. You never move a crate yourself: carriers push their carts along
-the roads, each loaded with what it carries, and markets send walkers
-through the streets with baskets of fish, bread, and cloth.
-
-![A close look at the town hall: its clock tower and banners, carts of goods on the paved streets, residents out walking, a fire watch and a market behind](docs/screenshots/street.webp)
-
-Settlers need food. Give them bread, cloth, and a chapel's faith, and their
-cottages grow into two-story citizens' homes that hold and pay twice as
-much. Then they come out in long coats and top hats, each household dressed
-in the colour of its roof.
-
-## A town that looks and works like a real one
-
-Every street has a desirability. A smithy or a quarry drags it down for
-several cells around; parks you lay out yourself (lawns, flower beds,
-walks in from the street, lamps, a fountain, a statue), a chapel, and paved streets
-lift it. Citizens will only live on a decent street, and the
-finest streets, with every service calling and furniture in the parlour,
-grow three-storey townhouses.
-Settlers do the rough work and citizens the skilled, and nobody walks more
-than fifteen road cells to a job, so the far-off mine needs its own
-workers' cottages. Zone the town well and it sorts itself into a fine
-centre, an industrial edge, and cottages by the mill.
-
-Then keep it standing. A fire watch, a healer, and a watch house send
-walkers to keep down the risk of fire, sickness, and theft; a sign goes up
-over a home long before disaster, and a fire watch's firefighters race to
-any blaze. Fish and bread rot unless a granary keeps them, tools wear out,
-and a builder's yard has to mend what runs down. Each year's winter is
-mild, normal, or hard, and the almanac tells you which a year ahead. Map
-views show desirability, workers, fire, health, order, and condition across
-the town.
-
-## Govern under pressure
-
-The bigger the town, the harder it pulls. Winters stop the fields and thin
-the catch. Running the town costs more for every home. Traders pay less the
-more you sell. The crown asks for goods on a deadline, and it remembers when
-you don't deliver. Approval decides how many people each home holds.
-
-You hold the levers: taxes for settlers and citizens, what to sell or buy and
-how much to keep, which buildings to pause, and when to answer the crown.
-
-<table>
-  <tr>
-    <td><img src="docs/screenshots/ui-town-panel.webp" alt="The town panel: the goals of the next rank, approval and what drives it, the treasury and what is left on the table, and tax rates"></td>
-    <td><img src="docs/screenshots/ui-build-menu.webp" alt="The build menu: each building pictured by its own model, with its cost, workers, desirability, and upkeep"></td>
-  </tr>
-  <tr>
-    <td align="center"><sub>the town panel: goals, approval, treasury, taxes, trade</sub></td>
-    <td align="center"><sub>the build menu, unlocking as the town grows</sub></td>
-  </tr>
-</table>
-
-![A mill selected: working with two of two workers, grinding wheat into flour, run down to 5% so it works at half pace until a builder mends it](docs/screenshots/ui-building.webp)
-
-## Every term ends, the town goes on
-
-A town is founded as a hamlet. Hold every goal of the next rank for two
-minutes (enough people and coins, a share of them citizens, a town that
-approves of you) and it rises to a **village**, then a **town**, then a
-**city**, whose finest streets must hold burghers in townhouses. Each rank
-brings a reward from the crown and opens upgrades made where buildings
-stand: the town hall becomes a guildhall and then a city hall, the market
-a market hall, the bakery an ovenworks, the quarry a masonry, and more,
-with scaffolding rising while carriers bring their materials. Nothing ends
-when a rank is reached.
-
-Three minutes in debt, two minutes of uproar, a town that empties out, or
-three of the crown's requests ignored, and the term is **lost**. Otherwise
-time runs out and the term is judged: flourishing, holding on, or declining.
-Stand for the **next term** to carry on the same town, or retire and found a
-new one. The open stone and ore run out, but the worked faces they leave keep
-giving a little, so a long reign never runs dry (or clear them to build).
-
-The reckoning shows how the term went: residents, coins, and approval
-across it, with the winters shaded, and the chronicle of everything that
-happened.
-
-<p align="center"><img src="docs/screenshots/reckoning.webp" width="640" alt="The reckoning of a 90-minute term: a village of 227 residents and 19096 coins, declining at the end, with a chart of the term and its chronicle"></p>
-
-## Drawn in ink
-
-There are no sprites or image files: every picture in the game is drawn in
-code with two weights of line on a pale ground. Each building wears the
-colour of what it makes and keeps its work in its yard: a log pile, a silo,
-a pen of sheep, a striped market stall. Trees, rocks, water, and roads are
-different on every cell.
-
-![All 24 building kinds, including the carpenter, plus the market hall and church](docs/screenshots/sheet-buildings.webp)
-
-As the town rises, its buildings rise with it. The town hall becomes a
-guildhall with a clock tower and banners, then a city hall with a dome and
-columns. Scaffolding goes up around every upgrade, with its bays and ladders
-filling as the carts bring the materials.
-
-![Town hall, guildhall and city hall at one camera scale](docs/screenshots/sheet-civic.webp)
-
-![Reusable scaffolding on civic buildings, a carpenter, warehouse, quarry and farm](docs/screenshots/sheet-works.webp)
-
-![Carpenter, civic and workplace upgrades, scaffolding progress and furniture cargo](docs/screenshots/sheet-upgrades.webp)
-
-## Play
-
-**[Play Inkline Town at inkline.typeonce.games](https://inkline.typeonce.games).**
-It runs in the browser, on a computer or a phone. Saves stay in your browser,
-and the town autosaves every two minutes of play. Share a picture of your
-town, or a link that opens it running for anyone, who can then play on from
-where you left it.
-
-New to the game? [How to play](docs/how-to-play.md) covers the controls, the
-rules of a term, and how the town works underneath. To run it yourself:
+需要 Node.js 24 與 pnpm 10.17.1。
 
 ```sh
-pnpm install
-pnpm dev
+pnpm install --frozen-lockfile
+pnpm dev --host 127.0.0.1 --port 5232
 ```
 
-## License
+開啟 http://127.0.0.1:5232/ 。原版城市建造器可從暫停選單開啟，也可直接前往 `/inkline-town.html`。兩個模式各自存檔。原版建造器的分享連結需要本機開發伺服器的 API，GitHub Pages 提供靜態遊戲。
 
-Apache 2.0 ([LICENSE](LICENSE)). Keep the [NOTICE](NOTICE) crediting Sandro Maglione at [typeonce.games](https://typeonce.games); the Typeonce name and logo are not covered.
+## 開始遊玩
 
----
+- WASD 移動，Shift 跑步，Space 跳躍。拖曳場景旋轉攝影機，V 切換跟隨與高角度視角。
+- 靠近出生點旁的小黃按 E 上車。W 加速、S 煞車或倒車、A／D 轉向、Space 手煞車。停穩後按 E 下車。
+- 上車會接下首趟任務。沿大道前往黃色接客圈，停車接乘客，再到台北 101 的黃色下車圈停車，獲得 250 金幣。任務完成後可重新挑戰。
+- M 展開城市地圖，小地圖右下按鈕切換朝向。Esc 開啟暫停、畫質、音量與日夜設定。行動裝置可使用觸控方向鍵。
+- 玩家位置、車輛位置、任務階段、獎勵和設定會儲存在本機瀏覽器。刷新時車輛從靜止狀態恢復。
 
-[How to play](docs/how-to-play.md) · [Developing](DEVELOPMENT.md) · [The design behind the term](docs/mayor-plan.md)
+## 檢查與製作發布版本
+
+```sh
+pnpm typecheck
+pnpm check
+pnpm test
+pnpm build
+pnpm preview --host 127.0.0.1 --port 4173
+```
+
+正式版本預覽路徑為 http://127.0.0.1:4173/Taipei-GTA/ 。要執行台北模式的 Playwright 測試，先執行 `pnpm exec playwright install chromium`，或用 `BROWSER_EXECUTABLE_PATH` 指定已安裝的 Chromium 瀏覽器。在伺服器啟動後，執行 `pnpm check:taipei`。可用 `TAIPEI_BASE_URL` 指向正式預覽網址。原版城市建造器的測試請見 [DEVELOPMENT.md](DEVELOPMENT.md)。
+
+GitHub Pages 工作流程位於 `.github/workflows/pages.yml`，使用 Vite 的 `/Taipei-GTA/` 路徑與 `dist/` 成品。授權推送後，將儲存庫的 Pages 來源設為 GitHub Actions，即可從主分支的工作流程部署。
+
+## Phase 1 範圍
+
+遊戲包含信義區、西門町、台北車站及淡水河／三重。地圖使用簡化比例，橋梁可通行。原版建造器維持獨立場景與存檔。台北場景共用建造、NPC 與自動車流、其他載具、其餘四項任務及手機實機效能測試待後續階段。
+
+## 授權
+
+基於 Sandro Maglione 的 [Inkline Town](https://github.com/SandroMaglione/inkline-town)。保留 [LICENSE](LICENSE)、[NOTICE](NOTICE) 與 [上游說明](INKLINE-README.md)。地標、黃色計程車、介面及合成引擎音效為本專案製作。

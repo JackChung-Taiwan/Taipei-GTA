@@ -19,7 +19,7 @@ export const createVisit = (
     visiting = false
     document.body.classList.remove("visiting")
     visitBar.classList.remove("show")
-    window.history.replaceState(null, "", "/")
+    window.history.replaceState(null, "", `${import.meta.env.BASE_URL}inkline-town.html`)
   }
   /** The shared town is loaded: show it running. */
   const visit = (title: string) => {
@@ -49,7 +49,7 @@ export const createVisit = (
   }
   /** The shared town could not be opened: say why, and found a town instead. */
   const visitFailed = (message: string) => {
-    window.history.replaceState(null, "", "/")
+    window.history.replaceState(null, "", `${import.meta.env.BASE_URL}inkline-town.html`)
     controls.openCharter(false)
     controls.toast(message)
   }

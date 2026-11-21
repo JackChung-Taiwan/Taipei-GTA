@@ -1,5 +1,5 @@
 {
-  "name": "factory-yard",
+  "name": "taipei-gta",
   "private": true,
   "license": "Apache-2.0",
   "type": "module",
@@ -29,9 +29,11 @@
     "look:upgrades": "node scripts/look-upgrades.ts",
     "look:ui": "node scripts/look-ui.ts",
     "test": "node --test \"test/*.test.ts\"",
-    "lint": "oxlint --ignore-pattern 'tools/lint/fixtures/**' src test scripts tools",
+    "lint": "oxlint --ignore-pattern \"tools/lint/fixtures/**\" src test scripts tools",
     "release": "pnpm --dir deploy release",
-    "engine:prepare": "node scripts/use-ritmo.ts"
+    "engine:prepare": "node scripts/use-ritmo.ts",
+    "preview": "vite preview",
+    "check:taipei": "node scripts/check-taipei.ts"
   },
   "dependencies": {
     "@pixi/3d": "0.1.0",

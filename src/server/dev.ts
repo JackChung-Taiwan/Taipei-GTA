@@ -39,7 +39,7 @@ export const sharesInDev = (): Plugin => ({
     const bucket = memoryBucket()
     const assets = {
       fetch: async (request: Request) => {
-        const html = await server.transformIndexHtml(new URL(request.url).pathname, await readFile("index.html", "utf8"))
+        const html = await server.transformIndexHtml(new URL(request.url).pathname, await readFile("inkline-town.html", "utf8"))
         return new Response(html, { headers: { "content-type": "text/html" } })
       }
     }

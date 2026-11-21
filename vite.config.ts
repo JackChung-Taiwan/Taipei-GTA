@@ -4,7 +4,8 @@ import * as ReplayVitePlugin from "@typeonce/ritmo-devtools/ReplayVitePlugin"
 
 import { sharesInDev } from "./src/server/dev.ts"
 
-export default defineConfig({
+export default defineConfig(({ command, isPreview }) => ({
+  base: command === "build" || isPreview ? "/Taipei-GTA/" : "/",
   // In `pnpm dev`, replays saved in the page land in .replays/ (see PLAYTEST.md).
   plugins: [sharesInDev(), ReplayVitePlugin.plugin()],
   environments: {
@@ -14,6 +15,7 @@ export default defineConfig({
         rolldownOptions: {
           input: {
             game: "index.html",
+            inkline: "inkline-town.html",
             gallery: "gallery.html",
             assets: "asset-lab.html",
             map: "map-lab.html",
@@ -28,4 +30,4 @@ export default defineConfig({
       }
     }
   }
-})
+}))

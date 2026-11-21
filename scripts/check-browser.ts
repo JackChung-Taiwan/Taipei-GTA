@@ -44,7 +44,7 @@ const capture=async(name:string)=>{
   await writeFile(`${output}/${name}.webp`,Buffer.from(data.split(",")[1]!,"base64"))
 }
 try {
-  await page.goto(process.env.GAME_BASE_URL??"http://127.0.0.1:5232")
+  await page.goto(process.env.GAME_BASE_URL??"http://127.0.0.1:5232/inkline-town.html")
   await page.waitForFunction(()=>window.town)
   await page.getByRole("button",{name:"small",exact:true}).click()
   await page.getByRole("button",{name:"Start new",exact:true}).click()
@@ -226,7 +226,7 @@ try {
   assert.ok(await visitor.locator(".toolbar").isHidden(),"A visitor's building tools are put away")
   await visitor.getByRole("button",{name:"Look at the town",exact:true}).click()
   await visitor.getByRole("button",{name:"Play from here",exact:true}).click()
-  assert.equal(new URL(visitor.url()).pathname,"/")
+  assert.equal(new URL(visitor.url()).pathname,"/inkline-town.html")
   assert.ok(await visitor.locator(".toolbar").isVisible(),"Playing on brings the tools back")
   await visitor.screenshot({path:`${output}/shared-visitor.png`})
   await visitor.close()

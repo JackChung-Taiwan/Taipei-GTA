@@ -1,0 +1,133 @@
+* { box-sizing: border-box }
+:root {
+  color-scheme: light;
+  --ink: #1c3437;
+  --deep: #142b30;
+  --paper: #fbf5e5;
+  --gold: #f7c956;
+  --coral: #e88e69;
+  font: 15px/1.5 "Microsoft JhengHei", "PingFang TC", system-ui, sans-serif;
+}
+body { margin: 0; overflow: hidden; background: #a9c7b1; color: var(--ink) }
+button, select, input { font: inherit }
+button { cursor: pointer }
+button:focus-visible, select:focus-visible, a:focus-visible { outline: 3px solid #e38d62; outline-offset: 3px }
+button[disabled] { cursor: default }
+[hidden] { display: none !important }
+#game, #world, .sky-tint, #labels { position: fixed; inset: 0 }
+.world-canvas { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab }
+.world-canvas:active { cursor: grabbing }
+.sky-tint { pointer-events: none; background: linear-gradient(180deg,#cce7e23b,transparent 33%,transparent 68%,#21393577) }
+.night .sky-tint { background: #182b6470; mix-blend-mode: multiply }
+#labels { pointer-events: none; overflow: hidden }
+.world-label { position: absolute; transform: translate(-50%, -110%); display: flex; align-items: center; gap: 7px; white-space: nowrap; background: var(--deep); color: var(--paper); padding: 5px 10px; border: 1px solid #ffffff4d; border-radius: 4px; font-size: 12px; font-weight: 800; box-shadow: 0 2px 6px #122d3150 }
+.world-label i { width: 6px; height: 6px; background: #91d5af; border-radius: 50% }
+.world-label.destination { background: var(--gold); border-color: #805d3d; color: var(--ink) }
+.world-label.destination i { background: #253d42; border-radius: 0; transform: rotate(45deg) }
+.hud-top { position: absolute; top: 22px; left: 24px; right: 24px; display: flex; align-items: center; justify-content: space-between; gap: 12px; pointer-events: none }
+.brand { display: flex; align-items: center; gap: 12px; color: #fffaec; padding: 10px 17px 11px 12px; background: var(--deep); border: 1px solid #52706d; border-radius: 8px; box-shadow: 0 4px 0 #142b3030 }
+.brand-icon { display: grid; justify-items: center; align-content: center; gap: 2px; width: 36px; height: 39px; border-radius: 5px; background: var(--gold) }
+.brand-icon i { width: 14px; height: 5px; background: var(--deep); clip-path: polygon(0 0,100% 0,81% 100%,19% 100%) }
+.brand-icon i:first-child { width: 4px; height: 6px }
+.brand-icon i:last-child { width: 18px }
+.brand-title { font: 950 24px/1 system-ui,sans-serif; letter-spacing: -0.045em }
+.brand-title b { color: var(--gold) }
+.brand-zh { color: #c6d8cc; margin-top: 4px; font-size: 11px; font-weight: 800 }
+.district { display: flex; gap: 8px; align-items: center; background: var(--deep); color: var(--paper); padding: 7px 14px; border-radius: 24px; font-size: 13px; font-weight: 700; border: 1px solid #88a096 }
+.district span { color: #9cddae; font-size: 9px }
+.player-stats { display: flex; gap: 7px; pointer-events: auto }
+.stat, .icon-button { background: var(--deep); color: var(--paper); border: 1px solid #4b6764; border-radius: 7px; padding: 8px 13px; display: flex; align-items: center; gap: 8px }
+.stat strong { display: block; font-size: 17px; line-height: 1.1; font-variant-numeric: tabular-nums }
+.stat small { display: block; color: #c5d6ce; font-size: 10px }
+.coin-icon, .level-icon { display: grid; place-items: center; color: #1d3437; border-radius: 50%; width: 24px; height: 24px; background: var(--gold); font-weight: 900 }
+.level-icon { background: #a3d6b7 }
+.icon-button { font-size: 21px }
+.panel { background: var(--paper); border: 1px solid #27494b; border-radius: 9px; box-shadow: 0 5px 0 #192f3033, 0 8px 25px #152f302d; overflow: hidden }
+.mission { position: absolute; top: 108px; right: 24px; width: 275px }
+.panel-heading { color: var(--paper); background: var(--deep); display: flex; align-items: center; gap: 8px; padding: 10px 13px; font-size: 14px }
+.gold-dot { height: 7px; width: 7px; border-radius: 50%; background: var(--gold) }
+#mission-state { margin-left: auto; color: var(--gold); font-size: 11px; font-weight: 800 }
+.mission-body { padding: 15px }
+.taxi-icon { display: grid; place-items: center; width: 40px; height: 37px; background: #f3e3b8; border-radius: 7px; font-size: 24px }
+h1 { margin: 8px 0 4px; font-size: 20px; letter-spacing: -0.03em }
+.mission-body p { margin: 0; min-height: 43px; color: #425855; font-size: 14px }
+.stages { padding: 10px 0; margin: 8px 0 12px; border-top: 1px solid #ded8c4; border-bottom: 1px solid #ded8c4; display: grid; gap: 7px; list-style: none; font-size: 13px }
+.stages li { display: flex; gap: 9px; align-items: center; color: #465b57 }
+.stages span { width: 19px; height: 19px; display: grid; place-items: center; border-radius: 50%; background: #e8e3d2; font-weight: 800; font-size: 10px }
+.stages .active { color: var(--deep); font-weight: 900 }
+.stages .active span { background: var(--gold) }
+.stages .done span { background: #bbd9b7 }
+.mission-button { display: flex; justify-content: space-between; width: 100%; background: var(--gold); color: var(--deep); padding: 8px 10px; border: 1px solid #bd9757; border-radius: 5px; font-weight: 850 }
+.mission-button b { font-size: 12px }
+.mission-button:disabled { background: #eee4c8; border-color: #d8cfba }
+.map { position: absolute; left: 24px; bottom: 24px; width: 230px }
+.map.expanded { left: 50%; bottom: 50%; transform: translate(-50%,50%); width: min(470px, 84vw); z-index: 4 }
+.map canvas { display: block; width: 100%; background: #28484d }
+.panel-heading button, .map-footer button { color: inherit; background: none; border: 0; margin-left: auto; padding: 0; line-height: 1 }
+.map-footer { display: flex; align-items: center; gap: 11px; padding: 7px 9px; font-size: 11px; font-weight: 750 }
+.map-footer i { display: inline-block; width: 7px; height: 7px; background: #308878; margin-right: 4px; border-radius: 50% }
+.map-footer span:nth-child(2) i { background: #cf962c }
+.map-footer button { font-size: 20px }
+.toolbar { position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); display: flex; align-items: center; gap: 11px; padding: 8px 10px; background: var(--deep); color: #f9f4e5; white-space: nowrap; font-size: 13px }
+.mode { display: flex; align-items: center; gap: 5px; padding: 4px 8px; background: #304d4b; border-radius: 4px }
+.mode span { background: #9bd9ad; width: 6px; height: 6px; border-radius: 50% }
+.shortcuts { display: flex; gap: 10px }
+kbd { display: inline-block; line-height: 1.15; border: 1px solid #8b9b8e; border-radius: 3px; padding: 2px 4px; color: #f9f4e5; background: #314b4c; font: 700 11px/1.15 ui-monospace,monospace }
+.toolbar button { padding: 3px; color: inherit; border: 0; background: none }
+.speed { position: absolute; bottom: 26px; right: 24px; min-width: 132px; padding: 8px 12px; font-variant-numeric: tabular-nums }
+.speed span { display: block; font-size: 12px; font-weight: 800 }
+.speed strong { font-size: 29px }
+.speed small { color: #4e6661 }
+.toast, .interaction { position: absolute; left: 50%; transform: translateX(-50%); text-align: center; border-radius: 6px; box-shadow: 0 3px 10px #1a363d44; border: 1px solid #4f6863; padding: 7px 13px; color: var(--paper); background: var(--deep); font-weight: 800 }
+.toast { bottom: 119px; min-width: 200px; pointer-events: none }
+.interaction { bottom: 78px; min-width: 135px; background: var(--gold); color: var(--deep) }
+dialog { padding: 0; width: min(390px,90vw); color: var(--ink) }
+dialog::backdrop { background: #132c33a8 }
+.settings-body { display: grid; gap: 12px; padding: 16px }
+.settings-body label { display: flex; justify-content: space-between; align-items: center; font-weight: 800 }
+.settings-body a { color: #266762 }
+.settings-body p { margin: 0; font-size: 13px }
+.credit { color: #465e58 }
+.loading { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 12px; background: var(--deep); color: var(--paper); z-index: 10; padding: 20px; text-align: center }
+.loading strong { color: var(--gold); font-size: 32px; font-weight: 900 }
+.touch { display: none }
+@media (max-width: 1000px) {
+  .map { width: 170px }
+  .mission { width: 225px }
+  .toolbar { gap: 6px }
+  .shortcuts { gap: 5px }
+}
+@media (max-width: 760px) {
+  .hud-top { top: 10px; left: 10px; right: 10px }
+  .brand { padding: 7px 9px; gap: 6px }
+  .brand-title { font-size: 18px }
+  .brand-icon { width: 24px; height: 31px }
+  .brand-zh { font-size: 9px }
+  .district, .level-icon { display: none }
+  .stat, .icon-button { padding: 5px 7px }
+  .stat strong { font-size: 14px }
+  .mission { top: 68px; right: 10px; width: 176px }
+  .mission-body { padding: 8px }
+  .mission-body p, .panel-heading { font-size: 12px }
+  .mission-body p { min-height: 0; margin-bottom: 8px }
+  .mission-button { padding: 4px; font-size: 12px }
+  .taxi-icon, .stages, .shortcuts { display: none }
+  h1 { font-size: 15px }
+  .map { width: 133px; left: 10px; bottom: 67px }
+  .map-footer { padding: 4px; gap: 4px; font-size: 9px }
+  .toolbar { bottom: 12px }
+  .speed { right: 10px; bottom: 65px; min-width: 83px }
+  .interaction { bottom: 67px }
+  .toast { bottom: 105px; font-size: 12px }
+}
+@media (pointer: coarse) {
+  .touch { position: absolute; bottom: 70px; left: 12px; right: 12px; display: flex; justify-content: space-between; align-items: end; pointer-events: none }
+  .dpad { display: grid; grid-template-columns: repeat(3, 43px); grid-template-rows: repeat(2,43px); gap: 3px }
+  .dpad button:first-child { grid-column: 2 }
+  .dpad button:nth-child(2) { grid-column: 1 }
+  .touch button { pointer-events: auto; touch-action: none; color: white; background: #142b30e8; border: 1px solid #a2c4b9; border-radius: 8px; min-height: 40px }
+  .touch-actions { display: flex; gap: 5px }
+  .map { bottom: 178px }
+  .speed { bottom: 122px }
+}
+.mission-body .distance { min-height: auto; margin-top: 4px; color: #6b5631; font-size: 12px; font-weight: 800 }

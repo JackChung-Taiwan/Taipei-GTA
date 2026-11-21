@@ -37,7 +37,7 @@ export interface Env {
   readonly bucket: Bucket
   /** A few uploads a minute from one visitor (absent: no limit by the minute, as in dev and tests). */
   readonly burst?: Limiter
-  /** The site's static files: here, its `index.html`. */
+  /** The site's static files: here, its `inkline-town.html`. */
   readonly assets: { fetch(request: Request): Promise<Response> }
 }
 
@@ -95,7 +95,7 @@ export const previewTags = (origin: string, id: string, meta: ShareMeta) => {
 /** The game's page with a share's preview written into its head (and its title). */
 const sharePage = async (request: Request, env: Env, id: string) => {
   const origin = new URL(request.url).origin
-  const page = await env.assets.fetch(new Request(`${origin}/`, { headers: { accept: "text/html" } }))
+  const page = await env.assets.fetch(new Request(`${origin}/inkline-town.html`, { headers: { accept: "text/html" } }))
   if (!page.ok) return page
   const html = await page.text()
   const head = await env.bucket.head(townKey(id))

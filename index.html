@@ -1,27 +1,85 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <meta name="theme-color" content="#f0f2ec" />
-    <title>Inkline Town</title>
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/src/ui/dom/styles/factory.css" />
-    <link rel="stylesheet" href="/src/ui/dom/styles/phone.css" />
-    <!-- The loading card is styled here, not in the game's CSS, so it shows before anything else arrives. -->
-    <style>
-      #loading { position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: #f0f2ec; color: #3d4943; font: 13px ui-monospace, "SF Mono", Menlo, monospace; transition: opacity 0.35s; }
-      #loading.done { opacity: 0; pointer-events: none; }
-      #loading b { font-size: 17px; letter-spacing: 0.04em; }
-      #loading .ink { width: 120px; height: 2px; background: #dfe3da; overflow: hidden; border-radius: 1px; }
-      #loading .ink::after { content: ""; display: block; width: 40%; height: 100%; background: #3d4943; animation: ink 1.1s ease-in-out infinite; }
-      @keyframes ink { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
-      @media (prefers-reduced-motion: reduce) { #loading .ink::after { animation: none; width: 100%; } }
-    </style>
-  </head>
-  <body>
-    <div id="app"></div>
-    <div id="loading" role="status"><b>Inkline Town</b><div class="ink"></div><span>drawing the town…</span></div>
-    <script type="module" src="/src/app/browser.ts"></script>
-  </body>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#142b30">
+  <meta name="description" content="在台北自由城步行探索、駕駛小黃，完成第一趟城市接送。">
+  <title>Taipei GTA｜台北自由城</title>
+  <link rel="icon" href="/taipei.svg" type="image/svg+xml">
+</head>
+<body>
+  <main id="game">
+    <div id="world"></div>
+    <div class="sky-tint" aria-hidden="true"></div>
+    <div id="labels" aria-hidden="true"></div>
+    <header class="hud-top">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <div><div class="brand-title">TAIPEI <b>GTA</b></div><div class="brand-zh">台 北 自 由 城</div></div>
+      </div>
+      <div class="district" id="district"><span>●</span> 台北市 ・ 台北車站</div>
+      <div class="player-stats">
+        <div class="stat"><span class="coin-icon" aria-hidden="true">＄</span><span><small>金幣</small><strong id="coins">0</strong></span></div>
+        <div class="stat"><span class="level-icon" aria-hidden="true">✦</span><span><small>等級</small><strong id="level">01</strong></span></div>
+        <button class="settings icon-button" data-action="pause" aria-label="暫停與設定">⚙</button>
+      </div>
+    </header>
+
+    <aside class="mission panel" aria-label="目前任務">
+      <div class="panel-heading"><span class="gold-dot"></span><b>城市任務</b><span id="mission-state">可接任務</span></div>
+      <div class="mission-body">
+        <div class="taxi-icon" aria-hidden="true">🚕</div>
+        <h1>台北計程車司機</h1>
+        <p id="objective" aria-live="polite">找到街上的小黃，接送乘客前往台北 101。</p>
+        <p id="distance" class="distance" hidden></p>
+        <ol class="stages">
+          <li id="step-pickup"><span>1</span>前往接客點</li>
+          <li id="step-dropoff"><span>2</span>送達台北 101</li>
+        </ol>
+        <button class="mission-button" data-action="mission">開始任務 <b>＋250 金幣</b></button>
+      </div>
+    </aside>
+
+    <div class="map panel" id="map-panel">
+      <div class="panel-heading"><b>城市導覽</b><button data-action="map" aria-label="展開或收合城市地圖"><kbd>M</kbd></button></div>
+      <canvas id="minimap" width="260" height="204" aria-label="玩家位置與任務導覽"></canvas>
+      <div class="map-footer"><span><i></i>你的位置</span><span><i></i>任務地點</span><button data-action="rotate-map" aria-label="切換地圖方向">⤾</button></div>
+    </div>
+
+    <div class="toast" id="toast" role="status" hidden></div>
+    <button class="interaction" id="interact" data-action="interact" hidden></button>
+    <div id="speed" class="speed panel" hidden><span>車速</span><strong id="km">0</strong><small> km/h</small></div>
+    <nav class="toolbar panel" aria-label="遊戲操作">
+      <div class="mode"><span></span><b id="travel-mode">自由探索</b></div>
+      <div class="shortcuts" id="shortcuts"><span><kbd>W A S D</kbd> 移動</span><span><kbd>Shift</kbd> 跑步</span><span><kbd>Space</kbd> 跳躍</span></div>
+      <button data-action="view"><kbd>V</kbd> <span>視角</span></button>
+      <button data-action="map"><kbd>M</kbd> <span>地圖</span></button>
+    </nav>
+    <div class="touch" aria-label="觸控操作">
+      <div class="dpad">
+        <button data-key="KeyW" aria-label="前進">▲</button><button data-key="KeyA" aria-label="往左">◀</button>
+        <button data-key="KeyS" aria-label="往後">▼</button><button data-key="KeyD" aria-label="往右">▶</button>
+      </div>
+      <div class="touch-actions"><button data-key="ShiftLeft" id="sprint">跑步</button><button data-key="Space" id="jump">跳躍</button></div>
+    </div>
+
+    <dialog id="pause" class="panel">
+      <form method="dialog">
+        <div class="panel-heading"><b>暫停與設定</b><button value="resume" aria-label="關閉設定">✕</button></div>
+        <div class="settings-body">
+          <label>引擎音量 <input id="volume" type="range" min="0" max="1" step="0.05"></label>
+          <label>畫質 <select id="quality"><option value="low">低</option><option value="medium">中</option><option value="high">高</option></select></label>
+          <label>夜景 <input id="night" type="checkbox"></label>
+          <p>滑鼠拖曳旋轉視角。按 E 上下車，或點選畫面的互動提示。</p>
+          <a href="./inkline-town.html">進入原版城市建造器</a>
+          <p class="credit">基於 Sandro Maglione 的 Inkline Town，採 Apache 2.0 授權。</p>
+          <button class="mission-button" value="resume">繼續探索</button>
+        </div>
+      </form>
+    </dialog>
+    <div id="loading" class="loading" role="status"><strong>TAIPEI GTA</strong><span>台北自由城載入中…</span></div>
+  </main>
+  <script type="module" src="/src/taipei/main.ts"></script>
+</body>
 </html>

@@ -18,7 +18,7 @@ try {
     // English, whatever this machine's own language: the check finds buttons by their English names.
     const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:2,isMobile:true,hasTouch:true,locale:"en-US"})
     page.on("pageerror",e=>errors.push(`${name}: ${e.message}`))
-    await page.goto(process.env.GAME_BASE_URL??"http://127.0.0.1:5232")
+    await page.goto(process.env.GAME_BASE_URL??"http://127.0.0.1:5232/inkline-town.html")
     await page.waitForFunction(()=>"town" in window)
     // The found button sits inside the screen without scrolling: it is pinned to the bottom.
     const found=page.getByRole("button",{name:"Start new",exact:true})

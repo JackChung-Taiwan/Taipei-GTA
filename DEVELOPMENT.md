@@ -24,7 +24,7 @@ Before pushing, run `pnpm typecheck`, `pnpm test`, and `pnpm check`.
 
 ## The playable 3D game
 
-Open [`/`](http://localhost:5232/) with the dev server running. The existing
+Open [`/inkline-town.html`](http://localhost:5232/inkline-town.html) with the dev server running. The existing
 simulation, town panels, economy, charter, history, reckoning and save format
 drive the approved 3D models. Drag to pan; right-drag or choose **Rotate** to
 turn and tilt. Scroll to zoom. Q/E turn, arrow keys pan, Home resets, and
